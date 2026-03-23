@@ -4,14 +4,46 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>book-AI</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version> <!-- 适配 JDK 21 的稳定版 -->
+        <relativePath/> <!-- 从本地仓库查找父 POM -->
+    </parent>
+
+    <!-- 父工程核心坐标（你的写法基础上补充关键配置） -->
+    <groupId>com.bookai</groupId>          <!-- 组织ID：反向域名/项目标识，小写更规范 -->
+    <artifactId>book-AI-parent</artifactId><!-- 工程ID：父工程名，保持和文件夹名一致 -->
+    <version>1.0-SNAPSHOT</version>        <!-- 版本：SNAPSHOT表示快照版（开发中），RELEASE表示正式版 -->
+    <packaging>pom</packaging>             <!-- 父工程必须设为pom（你漏了这行！核心） -->
+    <name>book-AI-parent</name>            <!-- 工程名称（可选，增强可读性） -->
+    <description>book-AI项目父工程，统一管理依赖版本和子模块</description> <!-- 描述（可选） -->
+
+    <modules>
+        <module>book-AI-common</module>
+        <module>book-AI-web</module>
+        <module>book-AI-pojo</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- 所有子模块共用的 Lombok 版本 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.32</version>
+                <optional>true</optional>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>
