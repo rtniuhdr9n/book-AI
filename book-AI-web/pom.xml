@@ -31,6 +31,13 @@
             <version>3.5.15</version>
         </dependency>
 
+        <!-- pom.xml -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+
         <!-- PostgreSQL 驱动 -->
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -47,6 +54,12 @@
         <dependency>
             <groupId>com.bookai</groupId>
             <artifactId>book-AI-pojo</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.bookai</groupId>
+            <artifactId>book-AI-commo</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

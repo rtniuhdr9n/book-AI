@@ -1,8 +1,10 @@
 package com.bookai.controller;
 
 import com.bookai.common.Result;
+import com.bookai.dto.UserLoginDTO;
 import com.bookai.dto.UserRegisterDTO;
 import com.bookai.service.UserService;
+import com.bookai.vo.UserLoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +19,22 @@ public class UserController {
 
     @PostMapping("/register")
     public Result register(@RequestBody UserRegisterDTO userRegisterDTO){
-        return userService.register(userRegisterDTO);
+       boolean success=userService.register(userRegisterDTO);
+       if(success){
+           return Result.success();
+       }else{
+           return Result.error("创建用户失败");
+       }
+    }
+
+    @PostMapping("/login")
+    public Result login(@RequestBody UserLoginDTO userLoginDTO){
+        UserLoginVO userLoginVO=userService.login(userLoginDTO);
+        if(userLoginVO!=null) {
+            return Result.success(userLoginVO);
+        }else{
+            return Result.error("用户名或密码失败");
+        }
+
     }
 }
