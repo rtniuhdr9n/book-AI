@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bookai.mapper.CartItemMapper">
+
+    <select id="selectByUserId" resultType="com.bookai.entity.CartItem">
+        SELECT ci.*, bi.title as book_title, bi.cover as book_cover, bi.price as book_price
+        FROM cart_item ci
+        LEFT JOIN book_info bi ON ci.book_id = bi.id
+        WHERE ci.user_id = #{userId}
+        ORDER BY ci.create_time DESC
+    </select>
+
+    <select id="selectByUserIdAndBookId" resultType="com.bookai.entity.CartItem">
+        SELECT *
+        FROM cart_item
+        WHERE user_id = #{userId} AND book_id = #{bookId}
+    </select>
+
+    <delete id="deleteByUserIdAndIds">
+        DELETE FROM cart_item
+        WHERE user_id = #{userId}
+        AND id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="clearByUserId">
+        DELETE FROM cart_item
+        WHERE user_id = #{userId}
+    </delete>
+
+</mapper>

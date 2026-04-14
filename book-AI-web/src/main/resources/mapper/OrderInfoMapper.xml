@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bookai.mapper.OrderInfoMapper">
+
+    <select id="selectByOrderNo" resultType="com.bookai.entity.OrderInfo">
+        SELECT *
+        FROM order_info
+        WHERE order_no = #{orderNo}
+    </select>
+
+    <select id="selectPageByUserId" resultType="com.bookai.entity.OrderInfo">
+        SELECT oi.*, ua.receiver_name, ua.receiver_phone,
+               ua.province || ua.city || ua.district || ua.detail_address as full_address
+        FROM order_info oi
+        LEFT JOIN user_address ua ON oi.address_id = ua.id
+        WHERE oi.user_id = #{userId}
+        ORDER BY oi.create_time DESC
+    </select>
+
+    <select id="selectByStatus" resultType="com.bookai.entity.OrderInfo">
+        SELECT *
+        FROM order_info
+        WHERE status = #{status}
+    </select>
+
+</mapper>
