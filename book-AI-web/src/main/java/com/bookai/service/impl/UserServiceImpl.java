@@ -1,6 +1,7 @@
 package com.bookai.service.impl;
 
 import com.bookai.Utils.JwtUtil;
+import com.bookai.common.UserRole;
 import com.bookai.dto.UserLoginDTO;
 import com.bookai.dto.UserRegisterDTO;
 import com.bookai.entity.User;
@@ -37,6 +38,7 @@ public class UserServiceImpl implements UserService {
                     .username(userRegisterDTO.getUsername())
                     .password(encodePassword)
                     .phone(userRegisterDTO.getPhone())
+                    .role(UserRole.USER.getCode()) // 默认注册为普通用户
                     .createTime(time)
                     .updateTime(time)
                     .build();
@@ -54,10 +56,13 @@ public class UserServiceImpl implements UserService {
         if(!ok){
             return null;
         }else{
-            String token= jwtUtil.generateToken(user.getId(), user.getUsername());
+            // 从数据库获取角色信息
+
+            String token= jwtUtil.generateToken(user.getId(), user.getUsername(), user.getRole());
             return UserLoginVO.builder()
                     .id(user.getId())
                     .username(user.getUsername())
+                    .role(user.getRole())
                     .authorization(token)
                     .build();
         }

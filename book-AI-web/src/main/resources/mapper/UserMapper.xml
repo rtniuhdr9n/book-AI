@@ -6,15 +6,16 @@
 
     <select id="existsByUsername" resultType="java.lang.Boolean">
         SELECT COUNT(*) > 0
-        FROM user
+        FROM "user"
         WHERE username = #{username}
     </select>
 
     <!-- 根据用户名查询用户（登录用） -->
     <select id="selectByUsername" resultType="com.bookai.entity.User">
-        SELECT id, username, password
-        FROM user
+        SELECT id, username, password, role, phone, create_time, update_time
+        FROM "user"
         WHERE username = #{username}
     </select>
+
 
 </mapper>
